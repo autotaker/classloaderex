@@ -73,4 +73,21 @@ public class AppTest
         }
     }
 
+    @Test
+    public void testClassGetResourceInTestDir() {
+        URL url = AppTest.class.getResource("maintest.txt");
+        assertThat(url, is(notNullValue()));
+    }
+
+    @Test
+    public void testClassGetResourceTestResourceIsVisibleFromMainClass() {
+        URL url = App.class.getResource("maintest.txt");
+        assertThat(url, is(notNullValue()));
+    }
+
+    @Test
+    public void testClassGetResourceReturnsNullForInTestDirOfOtherModule() {
+        URL url = Core.class.getResource("coretest.txt");
+        assertThat(url, is(nullValue()));
+    }
 }
