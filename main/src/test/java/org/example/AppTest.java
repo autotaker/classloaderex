@@ -18,12 +18,20 @@ public class AppTest
     @Test
     public void testClassGetResourceFile() {
         URL url = App.class.getResource("main.txt");
+        assertThat(url.getPath(), endsWith("org/example/main.txt"));
         assertThat(url.getProtocol(), is("file"));
+    }
+
+    @Test
+    public void testClassGetResourceReturnsNullIfResourceIsNotFound() {
+        URL url = App.class.getResource("notexists.txt");
+        assertThat(url, is(nullValue()));
     }
 
     @Test
     public void testClassGetResourceJar() {
         URL url = Core.class.getResource("hello.txt");
+        assertThat(url.getPath(), endsWith("org/example/core/hello.txt"));
         assertThat(url.getProtocol(), is("jar"));
     }
 
